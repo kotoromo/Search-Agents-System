@@ -55,6 +55,7 @@ class Problem:
         and the goal state defined within the problem.
         'heur' = heuristic function to use.
     """
+
     def __init__(self, *args, **kwargs):
         # Dictionary which states the available default graphs.
         spaces = {'g1': self.graph_1, 'g2': self.graph_2, 'g3': self.graph_3}
@@ -167,8 +168,11 @@ class Problem:
 
 
 class Solver:
+    """
+    dfs ha sido implementado en tu lugar.
+    """
     def dfs(self, problem):
-        problem.restartCounter()
+        problem.restartCounter() #NO BORRAR!
         #Escribe tu código aquí
 
         fringe = util.Stack()
@@ -186,110 +190,53 @@ class Solver:
                 for child in problem.getSuccessors(current):
                     fringe.push( (child[0], planToNode + [child[0]] ) )
 
-    def dfs2(self, problem):
-        problem.restartCounter()
-        #Escribe tu código aquí
-
-        pila = util.Stack()
-        visitados = []
-        plan = [problem.getStartState()]
-
-        pila.push( (problem.getStartState(), plan) )
-
-        while( not pila.isEmpty() ):
-            edo_act, plan = pila.pop()
-
-            if not problem.isGoal(edo_act):
-                if edo_act not in visitados:
-                    visitados.append(edo_act)
-
-                    for hijo in problem.getSuccessors(edo_act):
-                        pila.push( (hijo[0], plan + [hijo[0]]) )
-            else:
-                break
-        return plan
-
+    """
+    Función que implementa Búsqueda por Amplitud (Breadth First Search)
+    """
     def bfs(self, problem):
-        problem.restartCounter()
+        problem.restartCounter() #NO BORRAR!
         #Escribe tu código aquí
-        cola = util.Queue()
-        visitados = []
-        plan = [problem.getStartState()]
 
-        cola.push( (problem.getStartState(), plan) )
-
-        while( not cola.isEmpty() ):
-            edo_act, plan = cola.pop()
-
-            if not problem.isGoal(edo_act):
-                if edo_act not in visitados:
-                    visitados.append(edo_act)
-
-                    for hijo in problem.getSuccessors(edo_act):
-                        cola.push( (hijo[0], plan + [hijo[0]]) )
-            else:
-                break
-        #print visitados #DEBUG
-        return plan
-
+        return solutions.Algorithms().bfs(problem)
         util.raiseNotDefined()
 
+    """
+    Función que implementa Búsqueda de Coste Uniforme
+    (conocido como Dijkstra o Uniform Cost Search)
+    """
     def ucs(self, problem):
-        problem.restartCounter()
+        problem.restartCounter() #NO BORRAR!
         #Escribe tu código aquí
-        pathCost = 0
-        curr_node = (problem.getStartState(), [problem.getStartState()], pathCost)
-        fringe = util.PriorityQueue()
-        fringe.update(curr_node, 0)
-        visited = []
-        cost = 0
 
-        while not fringe.isEmpty():
-            curr_node = fringe.pop()
-            if problem.isGoal(curr_node[0]):
-                #print("cost: " + str(curr_node[2])) #DEBUG
-                return curr_node[1]
-            if curr_node[0] not in visited:
-                visited.append(curr_node[0])
-                for child in problem.getSuccessors(curr_node[0]):
-                    child = (child[0], curr_node[1] + [child[0]], child[1] + curr_node[2])
-                    #print(child) ->
-                    #('B', ['A', 'B'], 3)
-                    #('C', ['A', 'C'], 1)
-                    if child[0] not in visited:
-                        fringe.update(child, child[2])
-                    #print fringe.heap #DEBUG
-
-        #util.raiseNotDefined()
-
+        return solutions.Algorithms().ucs(problem)
+        util.raiseNotDefined()
+    """
+    Función que implementa A* (A estrella).
+    """
     def astar(self, problem):
         problem.restartCounter()
         #Escribe tu código aquí
-
         pathCost = 0 + problem.heuristic((problem.getStartState(), [problem.getStartState()], 0))
         curr_node = (problem.getStartState(), [problem.getStartState()], pathCost)
         fringe = util.PriorityQueue()
         fringe.update(curr_node, 0)
         visited = []
         cost = 0
-
         while not fringe.isEmpty():
             curr_node = fringe.pop()
             if problem.isGoal(curr_node[0]):
                 #print("cost: " + str(curr_node[2])) #DEBUG
                 return curr_node[1]
-            if curr_node[0] not in visited:
-                visited.append(curr_node[0])
-                for child in problem.getSuccessors(curr_node[0]):
-                    child = (child[0], curr_node[1] + [child[0]], child[1] + curr_node[2])
-                    #print(child) ->
-                    #('B', ['A', 'B'], 3)
-                    #('C', ['A', 'C'], 1)
-                    if child[0] not in visited:
-                        fringe.update(child, child[2] + problem.heuristic(child[0]))
-                    #print fringe.heap #DEBUG
-
-        util.raiseNotDefined()
+                if curr_node[0] not in visited:
+                    visited.append(curr_node[0])
+                    for child in problem.getSuccessors(curr_node[0]):
+                        child = (child[0], curr_node[1] + [child[0]], child[1] + curr_node[2])
+                        #print(child) ->
+                        #('B', ['A', 'B'], 3)
+                        #('C', ['A', 'C'], 1)
+                        if child[0] not in visited:
+                            fringe.update(child, child[2] + problem.heuristic(child[0]))
+                            #print fringe.heap #DEBUG
 
 def main():
     """
@@ -391,7 +338,9 @@ def main():
     space_solution = solutions.SpaceSolution()
     problem_2 = space_solution.getSolutionProblem()
     problem_2.setHeuristic(dist_heur)
-    sol = solv.astar(problem_2)
+    #sol = solv.bfs(problem_2) THIS CAUSES ERROR
+
+    sol = solv.dfs(problem_2)
     print "Solution: %s" % (str(sol))
     print "Nodes expanded: %s" % (str(problem_2.getNodesExpanded()))
     print "Cost: %i" % (problem_2.getSolutionCost(sol))

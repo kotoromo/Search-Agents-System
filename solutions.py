@@ -119,7 +119,6 @@ class Algorithms:
                         if child[0] not in visited:
                             fringe.update(child, child[2] + problem.heuristic(child[0]))
                             #print fringe.heap #DEBUG
-                            #util.raiseNotDefined()
 
 class SpaceSolution:
     #Base goal world model
@@ -157,7 +156,7 @@ class SpaceSolution:
 
     def __init__(self):
         self.problem = system.Problem( start = 'El Rosario',
-                                  goal = 'Hidalgo',
+                                  goal = 'Chabacano',
                                   space = self.world,
                                 )
     def getSolutionProblem(self):
