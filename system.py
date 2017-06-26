@@ -48,44 +48,39 @@ class Problem:
     Problem abstraction.
     Arguments:
         'space' = state space
-        'method' = solving method/function
-        'goal' = goal node
-        'start' = start node
+        'goal' = goal state
+        'start' = start state
         'goal_fn' = custom goal function, if not specified
         uses one that checks for equality between the state given
         and the goal state defined within the problem.
+        'heur' = heuristic function to use.
     """
     def __init__(self, *args, **kwargs):
         # Dictionary which states the available default graphs.
         spaces = {'g1': self.graph_1, 'g2': self.graph_2, 'g3': self.graph_3}
 
-        if kwargs != None:
-            if kwargs.get('use_graph') is not None:
-                self.state_space = kwargs.get('space')
+        if kwargs is not None:
+            if kwargs.get('space') is not None:
+                if kwargs.get('space') in spaces.keys():
+                    self.state_space = spaces.get(kwargs.get('space'))
+                else:
+                    self.state_space = kwargs.get('space')
             else:
-                #self.custom_graph = kwargs.get('use_graph')
-                self.state_space = kwargs.get('use_graph')
+                self.state_space = spaces['g1']
 
             self.goal_state = kwargs.get('goal')
             self.start_state = kwargs.get('start')
-            self.goal_function = kwargs.get('goal_fn')
-            self.heuristic = kwargs.get('heur')
 
-        if self.goal_function is None:
-            self.goal_function = self.defaultIsGoal
+            if(kwargs.get('goal_fn') is None):
+                self.goal_function = self.defaultIsGoal
+            else:
+                self.goal_function = kwargs.get('goal_fn')
 
-        if self.state_space is None:
-            self.state_space = 'g1'
-            print("Using graph: " + self.state_space)
-        elif (self.state_space is None):
-            self.state_space = self.custom_graph
-        else:
-            print("Using graph: " + self.state_space)
+            if kwargs.get('heur') is None:
+                self.heuristic = self.nullHeuristic
+            else:
+                self.heuristic = kwargs.get('heur')
 
-        if spaces is not None:
-            self.state_space = spaces[self.state_space]
-        else:
-            self.state_space = self.custom_graph
 
         self.nodes_expanded = 0
 
@@ -96,8 +91,15 @@ class Problem:
     def getSuccessors(self, state):
         self.nodes_expanded += 1
         #print("Node expanded:" + state) #DEBUG
-        print (self.state_space)
+        #print "self.state_space"
+        #print (self.state_space) #DEBUG
         return self.state_space[state]
+
+    """
+    Trivial heuristic function
+    """
+    def nullHeuristic(self, *args, **kwargs):
+        pass
 
     """
     Sets the heuristic function
@@ -264,7 +266,6 @@ class Solver:
         problem.restartCounter()
         #Escribe tu código aquí
 
-        print problem.getStartState()
         pathCost = 0 + problem.heuristic((problem.getStartState(), [problem.getStartState()], 0))
         curr_node = (problem.getStartState(), [problem.getStartState()], pathCost)
         fringe = util.PriorityQueue()
@@ -386,15 +387,14 @@ def main():
     print "Nodes expanded: %s" % (str(problem.getNodesExpanded()))
     print "Cost: %i" % (problem.getSolutionCost(sol))
 
-    """
     print("--------------A* TSP----------------------")
-    problem_2 = solutions.SpaceSolution.problem
+    space_solution = solutions.SpaceSolution()
+    problem_2 = space_solution.getSolutionProblem()
     problem_2.setHeuristic(dist_heur)
     sol = solv.astar(problem_2)
     print "Solution: %s" % (str(sol))
-    print "Nodes expanded: %s" % (str(problem.getNodesExpanded()))
-    print "Cost: %i" % (problem.getSolutionCost(sol))
-    """
+    print "Nodes expanded: %s" % (str(problem_2.getNodesExpanded()))
+    print "Cost: %i" % (problem_2.getSolutionCost(sol))
 
 
 if __name__ == '__main__':
