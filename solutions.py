@@ -149,7 +149,10 @@ class SpaceSolution:
         "Ermita": [("Zapata", 0), ("Chabacano", 0)]
     }
 
-    problem = system.Problem( start = 'El Rosario',
-                              goal = 'Hidalgo',
-                              custom_graph = world,
-                            )
+    def __init__(self):
+        self.problem = system.Problem( start = 'El Rosario',
+                                  goal = 'Hidalgo',
+                                  space = self.world,
+                                )
+    def getSolutionProblem(self):
+        return self.problem
