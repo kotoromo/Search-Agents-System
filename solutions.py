@@ -124,29 +124,30 @@ class Algorithms:
 class SpaceSolution:
     #Base goal world model
     world = {
-        "Instituto del Petróleo":[ ('La Raza', 0), ("Deportivo 18 de Marzo", 0), ('El Rosario', 0) ],
-        'El Rosario':[ ('Tacuba', 0), ("Instituto del Petróleo", 0) ],
-        "Deportivo 18 de Marzo":[ ('La Raza', 0), ("Instituto del Petróleo", 0), ('Martin Carrera', 0) ],
-        'Martin Carrera':[ ('Deportivo 18 de Marzo', 0), ('Consulado', 0) ],
-        "La Raza": [("Deportivo 18 de Marzo", 0), ("Instituto del Petróleo", 0), ('Consulado', 0), ("Guerrero", 0)],
-        "Consulado": [("Martin Carrera", 0), ("La Raza", 0), ("Morelos", 0)],
-        "Guerrero": [('Garibaldi', 0), ('La Raza', 0), ("Hidalgo", 0)],
-        "Garibaldi": [('Guerrero', 0), ('Morelos', 0), ('Bellas Artes', 0)],
-        "Morelos": [("Garibaldi", 0), ("Consulado", 0), ("Candelaria", 0), ("San Lázaro", 0)],
-        "Tacuba": [('Hidalgo', 0), ("Tacubaya", 0), ("El Rosario", 0)],
-        "Hidalgo": [("Tacuba", 0), ("Balderas", 0), ("Guerrero", 0), ("Bellas Artes", 0)],
-        "Bellas Artes": [("Hidalgo", 0), ("Garibaldi", 0), ("Pino Suárez", 0)],
-        "Tacubaya": [("Tacuba", 0), ("Mixcoac", 0)],
-        "Balderas": [("Hidalgo", 0), ("Centro Médico", 0), ("Pino Suárez", 0), ("Tacubaya", 0)],
-        "Pino Suárez": [("Bellas Artes", 0), ("Chabacano", 0), ("Candelaria", 0)],
-        "Candelaria": [("Pino Suárez", 0), ("Jamaica", 0), ("San Lázaro", 0), ("Morelos", 0)],
+        'El Rosario':[ ('Tacuba', 3), ("Instituto del Petróleo", 5) ],
+        "Instituto del Petróleo":[ ('La Raza', 1), ("Deportivo 18 de Marzo", 1), ('El Rosario', 5) ],
+        "Deportivo 18 de Marzo":[ ('La Raza', 1), ("Instituto del Petróleo", 1), ('Martin Carrera', 1) ],
+        'Martin Carrera':[ ('Deportivo 18 de Marzo', 1), ('Consulado', 2) ],
+        "La Raza": [("Deportivo 18 de Marzo", 1), ("Instituto del Petróleo", 1), ('Consulado', 2), ("Guerrero", 1)],
+        "Consulado": [("Martin Carrera", 2), ("La Raza", 2), ("Morelos", 1)],
+        "Guerrero": [('Garibaldi', 0), ('La Raza', 1), ("Hidalgo", 10)], #Ir a Hidalgo es bastante molesto, por eso el costo es 10
+        "Garibaldi": [('Guerrero', 0), ('Morelos', 2), ('Bellas Artes', 10)], #Ir a Bellas Artes es bastante molesto, por eso el costo es 10
+        "Morelos": [("Garibaldi", 2), ("Consulado", 1), ("Candelaria", 0), ("San Lázaro", 0)],
+        "Tacuba": [('Hidalgo', 16), ("Tacubaya", 4), ("El Rosario", 3)],
+        "Hidalgo": [("Tacuba", 16), ("Balderas", 11), ("Guerrero", 10), ("Bellas Artes", 10)],
+        "Bellas Artes": [("Hidalgo", 10), ("Garibaldi", 10), ("Pino Suárez", 12)],
+        "Tacubaya": [("Tacuba", 4), ("Mixcoac", 2)],
+        "Balderas": [("Hidalgo", 11), ("Centro Médico", 2), ("Pino Suárez", 2), ("Tacubaya", 5)],
+        "Pino Suárez": [("Bellas Artes", 2), ("Chabacano", 1), ("Candelaria", 1)],
+        "Candelaria": [("Pino Suárez", 1), ("Jamaica", 1), ("San Lázaro", 0), ("Morelos", 0)],
         "San Lázaro": [("Candelaria", 0), ("Morelos", 0)],
-        "Mixcoac": [("Tacubaya", 0), ("Zapata", 0)],
-        "Centro Médico": [("Chabacano", 0), ("Balderas", 0), ("Zapata", 0)],
-        "Chabacano": [("Jamaica", 0), ("Pino Suárez", 0), ("Ermita", 0), ("Centro Médico", 0)],
-        "Jamaica": [("Chabacano", 0), ("Candelaria", 0), ("Santa Anita", 0)],
-        "Zapata": [("Mixcoac", 0), ("Centro Médico", 0), ("Ermita", 0)],
-        "Ermita": [("Zapata", 0), ("Chabacano", 0)]
+        "Mixcoac": [("Tacubaya", 2), ("Zapata", 2)],
+        "Centro Médico": [("Chabacano", 1), ("Balderas", 2), ("Zapata", 3)],
+        "Chabacano": [("Jamaica", 0), ("Pino Suárez", 1), ("Ermita", 5), ("Centro Médico", 1)],
+        "Jamaica": [("Chabacano", 0), ("Candelaria", 1), ("Santa Anita", 0)],
+        "Zapata": [("Mixcoac", 2), ("Centro Médico", 3), ("Ermita", 2)],
+        "Ermita": [("Zapata", 2), ("Chabacano", 5)],
+        "Santa Anita" : [("Jamaica", 0)]
     }
 
     def __init__(self):
