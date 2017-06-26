@@ -16,32 +16,32 @@ import util, solutions
 class Problem:
 
     graph_2 = {
-        ('A', 1):[('B', 2)],
-        ('B', 2):[('C', 1), ('D', 5)],
-        ('D', 5):[('E', 1), ('F', 3)],
-        ('E', 1):[('D', 5)],
-        ('F', 3):[('D', 5)]
+        'A':[('B', 2)],
+        'B':[('C', 1), ('D', 5)],
+        'D':[('E', 1), ('F', 3)],
+        'E':[('D', 5)],
+        'F':[('D', 5)]
     }
 
     """
     Grafo con costos
     """
     graph_1 = {
-        ('A', 1):[('B', 1)],
-        ('B', 1):[('C', 1), ('D', 1), ('A', 1)],
-        ('C', 1):[('B', 1)],
-        ('D', 1):[('E', 1), ('F', 1), ('B', 1)],
-        ('E', 1):[('D', 1)],
-        ('F', 1):[('D', 1)]
+        'A':[('B', 1)],
+        'B':[('C', 1), ('D', 1), ('A', 1)],
+        'C':[('B', 1)],
+        'D':[('E', 1), ('F', 1), ('B', 1)],
+        'E':[('D', 1)],
+        'F':[('D', 1)]
     }
 
     graph_3 = {
-        ('A', 0):[('B', 3), ('C', 1)],
-        ('B', 0):[('C', 1), ('D', 2), ('A', 3)],
-        ('C', 0):[('B', 1), ('A', 1), ('F', 7)],
-        ('D', 0):[('E', 2), ('F', 1), ('B', 2)],
-        ('E', 0):[('D', 2)],
-        ('F',0):[('D', 1), ('C', 7)]
+        'A':[('B', 3), ('C', 1)],
+        'B':[('C', 1), ('D', 2), ('A', 3)],
+        'C':[('B', 1), ('A', 1), ('F', 7)],
+        'D':[('E', 2), ('F', 1), ('B', 2)],
+        'E':[('D', 2)],
+        'F':[('D', 1), ('C', 7)]
     }
 
     """
@@ -97,7 +97,7 @@ class Problem:
         self.nodes_expanded += 1
         #print("Node expanded:" + state) #DEBUG
         print (self.state_space)
-        return self.state_space[self.findKey(state)]
+        return self.state_space[state]
 
     """
     Sets the heuristic function
@@ -288,7 +288,7 @@ class Solver:
                         fringe.update(child, child[2] + problem.heuristic(child[0]))
                     #print fringe.heap #DEBUG
 
-        #util.raiseNotDefined()
+        util.raiseNotDefined()
 
 def main():
     """
@@ -386,6 +386,7 @@ def main():
     print "Nodes expanded: %s" % (str(problem.getNodesExpanded()))
     print "Cost: %i" % (problem.getSolutionCost(sol))
 
+    """
     print("--------------A* TSP----------------------")
     problem_2 = solutions.SpaceSolution.problem
     problem_2.setHeuristic(dist_heur)
@@ -393,7 +394,7 @@ def main():
     print "Solution: %s" % (str(sol))
     print "Nodes expanded: %s" % (str(problem.getNodesExpanded()))
     print "Cost: %i" % (problem.getSolutionCost(sol))
-
+    """
 
 
 if __name__ == '__main__':
