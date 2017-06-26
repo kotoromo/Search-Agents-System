@@ -123,6 +123,11 @@ class Algorithms:
 
 class SpaceSolution:
     #Base goal world model
+    """
+    The costs are based on how many stations there are inbetween.
+    The cost for any route that connects to Hidalgo and Bellas Artes is added 10
+    extra for the hassle that it is traversing to those stations.
+    """
     world = {
         'El Rosario':[ ('Tacuba', 3), ("Instituto del Petróleo", 5) ],
         "Instituto del Petróleo":[ ('La Raza', 1), ("Deportivo 18 de Marzo", 1), ('El Rosario', 5) ],
